@@ -11,10 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: cd darock; npm i; npm run build; cd
+      - run: cd darock; npm ci; npm run build;
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_DAROCKGAME }}
+          entryPoint: darock
           channelId: live
           projectId: darockgame

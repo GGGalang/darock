@@ -4,6 +4,22 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import rockmuffin from "./assets/rockmuffin.svg";
 
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCaocb5pwfHaHG1sv1zDHijM1QwZUpABrU",
+  authDomain: "darockgame.firebaseapp.com",
+  projectId: "darockgame",
+  storageBucket: "darockgame.appspot.com",
+  messagingSenderId: "1085928755376",
+  appId: "1:1085928755376:web:ee3bcd6673fd5eb4c32b75",
+  measurementId: "G-B3HHY0510C"
+};
+
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
 export const App = () => {
   const [count, setCount] = useState(0);
 
