@@ -1,0 +1,58 @@
+@font-face {
+  font-family: Coffee;
+  src: local("Coffee"), url(./assets/DarlingCoffee.otf) format("opentype");
+}
+
+#rock {
+  display: inline-block;
+  animation: rotation 2s infinite linear;
+}
+
+#progressBar{
+  position: absolute;
+  top: 85%;
+  left: 45%;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(-25deg);
+  }
+  50% {
+    transform: rotate(25deg);
+  }
+  100% {
+    transform: rotate(-25deg);
+  }
+}
+
+* {
+  font-family: Coffee;
+}
+
+.rock{
+  position: absolute;
+  top: 25%;
+  left: 40%;
+  color: gray;
+}
+
+.actionDiv{
+  position: absolute;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  width: 100%;
+  top: 90%;
+}
+
+.status{
+  position: absolute;
+  width: 100%;
+  top: 70%;
+  text-align: center;
+}
+
+.childBtn{
+  margin: auto;
+}
