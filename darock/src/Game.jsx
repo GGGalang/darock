@@ -49,14 +49,31 @@ export const Game = () => {
     document.getElementById("study").style.backgroundColor = "green";
   };
 
+  var score = 0;
+  var animationSpeed = 2;
+  const states = ["hungry", "bored", "tired", "curious"];
+  const stateColors = ["yellow", "red", "blue", "green"];
+  var multiplier = 1;
+  var paused = true;
+
+  const update = () => {
+    setTestState("paused");
+  };
+
+  const [testState, setTestState] = useState();
+
   useEffect(() => {
-    var score = 0;
-    var animationSpeed = 2;
-    const states = ["hungry", "bored", "tired", "curious"];
-    const stateColors = ["yellow", "red", "blue", "green"];
-    var multiplier = 1;
-    
-    function startGame() {
+    paused = !paused;
+    console.log(paused);
+    if (paused == true) {
+      alert("Game Paused! Your current score is: " + score);
+    } else {
+      startGame();
+    }
+  }, [testState]);
+
+  useEffect(() => {
+    function updateStatus() {
       //generate and update status and speed
       var state = Math.floor(Math.random() * 4);
       document.querySelector(".status").innerHTML =
@@ -65,10 +82,16 @@ export const Game = () => {
         stateColors[state];
       document.getElementById("rock").style.animationDuration =
         animationSpeed + "s";
+    }
 
+    function startGame() {
+      updateStatus();
       //timer
       var timeleft = 10;
       var statusTimer = setInterval(function () {
+        if (paused) {
+          return;
+        }
         if (timeleft <= 0) {
           clearInterval(statusTimer);
           console.log(state);
@@ -102,6 +125,10 @@ export const Game = () => {
   return (
     <>
       <div style={{ textAlign: "center", fontSize: "100px" }}>darock.</div>
+      <button onClick={update} className="pauseBtn" id="pauseScore">
+        Pause or Resume
+      </button>
+      <div className="scorePause">Score: 0</div>
       <div style={{ textAlign: "center" }}>
         <li style={{ listStyleType: "none" }}>
           <Link reloadDocument to={"/mechanics"}>
