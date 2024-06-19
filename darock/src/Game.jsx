@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from "react";
 import "./App.css";
-import rockmuffin from "./assets/rockmuffin.svg";
 
 import cookie from "./assets/cookie.png";
 import game from "./assets/game.jpg";
@@ -12,11 +11,7 @@ import snore from "./assets/snore.mp3";
 import hmm from "./assets/hmm.mp3";
 
 import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-  Link,
+  Link
 } from "react-router-dom";
 
 /* ToDos:
@@ -38,7 +33,7 @@ import {
 */
 
 export const Game = () => {
-  let pressed = [0, 0, 0, 0];
+  var pressed = [0, 0, 0, 0];
 
   const setCookie = () => {
     pressed[0] = 1;
@@ -61,10 +56,10 @@ export const Game = () => {
     document.getElementById("thinkAudio").play();
   };
 
-  var score = 0;
-  var animationSpeed = 2;
   const states = ["hungry", "bored", "tired", "curious"];
   const stateColors = ["yellow", "red", "blue", "green"];
+  var score = 0;
+  var animationSpeed = 2;
   var multiplier = 1;
   var paused = true;
   var state = 0;
@@ -99,11 +94,9 @@ export const Game = () => {
   function startGame() {
     updateStatus();
     //timer
-    var stop = false;
     var statusTimer = setInterval(function () {
       if (paused == true) {
         clearInterval(statusTimer);
-        stop = true;
         return;
       }
       if (timeleft <= 0) {
@@ -133,11 +126,6 @@ export const Game = () => {
       document.getElementById("progressBar").value = 10 - timeleft;
       timeleft -= 1;
     }, 1000 * multiplier);
-    if (stop) {
-      clearInterval(statusTimer);
-      timeleft = 10;
-      return;
-    }
   }
 
   const update = () => {

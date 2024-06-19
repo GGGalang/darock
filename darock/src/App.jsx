@@ -1,8 +1,4 @@
-import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
-import rockmuffin from "./assets/rockmuffin.svg";
 
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
@@ -13,8 +9,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Navigate,
-  Link
+  Navigate
 } from "react-router-dom";
 
 const firebaseConfig = {
