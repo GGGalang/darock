@@ -1,12 +1,15 @@
 import { useEffect, useState, useRef } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import rockmuffin from "./assets/rockmuffin.svg";
 
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { Mechanics } from "./Mechanics";
+import cookie from "./assets/cookie.png";
+import game from "./assets/game.jpg";
+import sleep from "./assets/sleep.jpg";
+import book from "./assets/book.png";
+import eat from "./assets/eat.mp3";
+import pew from "./assets/pew.mp3";
+import snore from "./assets/snore.mp3";
+import hmm from "./assets/hmm.mp3";
 
 import {
   BrowserRouter as Router,
@@ -18,13 +21,18 @@ import {
 
 /* ToDos:
 - Speed up animations w/ multiplier DONE
-- Pause and Resume
-- Hard Mode
+- Pause and Resume DONE
+- Hard Mode DONE
 - Animations onclick (a cookie will appear if feed cookie etc)
-    - Add symbols for the actions above buttons first lol
-    - Add sounds?
+    - Add symbols for the actions above buttons first lol DONE
+    - Add sounds? DONE
+    - add animations for the items flying onclick
 - Death scene?
 - Better UI
+    - better scores
+    - better buttons
+    - not UI but better button setting code lol
+    - better svg code (maybe make it component?)
 - Leaderboard
 - Power ups, question mark
 */
@@ -35,18 +43,22 @@ export const Game = () => {
   const setCookie = () => {
     pressed[0] = 1;
     document.getElementById("cookie").style.backgroundColor = "green";
+    document.getElementById("eatAudio").play();
   };
   const setGame = () => {
     pressed[1] = 1;
     document.getElementById("game").style.backgroundColor = "green";
+    document.getElementById("gameAudio").play();
   };
   const setSleep = () => {
     pressed[2] = 1;
     document.getElementById("sleep").style.backgroundColor = "green";
+    document.getElementById("snoreAudio").play();
   };
   const setStudy = () => {
     pressed[3] = 1;
     document.getElementById("study").style.backgroundColor = "green";
+    document.getElementById("thinkAudio").play();
   };
 
   var score = 0;
@@ -57,11 +69,24 @@ export const Game = () => {
   var paused = true;
   var state = 0;
   var timeleft = 10;
+  var hard = false;
 
   //refs
   const statusRef = useRef(null);
   const rockRef = useRef(null);
   const scoreRef = useRef(null);
+  const hardRef = useRef(null);
+  
+  const enableHard = () => {
+    var real = window.confirm("Are you sure you want to enable hard mode? This immediately changes the difficulty. THERE IS NO GOING BACK.");
+    if (real) {
+      hard = !hard;
+      multiplier = 0.1;
+      alert("Hard Mode Enabled! Good Luck! Next round will spell your doom.");
+      hardRef.current.innerHTML = "Hard Mode: On";
+    }
+
+  }
 
   function updateStatus() {
     //generate and update status and speed
@@ -74,7 +99,7 @@ export const Game = () => {
   function startGame() {
     updateStatus();
     //timer
-    var stop = false
+    var stop = false;
     var statusTimer = setInterval(function () {
       if (paused == true) {
         clearInterval(statusTimer);
@@ -124,13 +149,29 @@ export const Game = () => {
     }
   };
 
+  useEffect(() => {
+    paused = false;
+    startGame();
+  });
+
   return (
     <>
       <div style={{ textAlign: "center", fontSize: "100px" }}>darock.</div>
+
       <button onClick={update} className="pauseBtn" id="pauseScore">
         Pause or Resume
       </button>
-      <div ref={scoreRef} className="scorePause">Score: 0</div>
+      <div ref={scoreRef} className="scorePause">
+        Score: 0
+      </div>
+
+      <button onClick={enableHard} className="hardBtn">
+        Enable Hard Mode
+      </button>
+      <div ref={hardRef} className="hardText">
+        Hard Mode: Off
+      </div>
+
       <div style={{ textAlign: "center" }}>
         <li style={{ listStyleType: "none" }}>
           <Link reloadDocument to={"/mechanics"}>
@@ -236,19 +277,31 @@ export const Game = () => {
         status
       </p>
 
-      <progress value="0" max="10" id="progressBar"></progress>
+      <progress style={{accentColor: "black"}} value="0" max="10" id="progressBar"></progress>
 
       <div className="actionDiv">
         <button className="childBtn" id="cookie" onClick={setCookie}>
+          <audio id="eatAudio" src={eat}></audio>
+          <img src={cookie} alt="cookie" height="50px" />
+          <br />
           feed cookie
         </button>
         <button className="childBtn" id="game" onClick={setGame}>
+          <audio id="gameAudio" src={pew}></audio>
+          <img src={game} alt="controller" height="50px" />
+          <br />
           play game
         </button>
         <button className="childBtn" id="sleep" onClick={setSleep}>
+          <audio id="snoreAudio" src={snore}></audio>
+          <img src={sleep} alt="pillow" height="50px" />
+          <br />
           sleep
         </button>
         <button className="childBtn" id="study" onClick={setStudy}>
+          <audio id="thinkAudio" src={hmm}></audio>
+          <img src={book} alt="book" height="50px" />
+          <br />
           study
         </button>
       </div>
