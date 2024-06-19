@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
@@ -55,72 +55,74 @@ export const Game = () => {
   const stateColors = ["yellow", "red", "blue", "green"];
   var multiplier = 1;
   var paused = true;
+  var state = 0;
+  var timeleft = 10;
+
+  //refs
+  const statusRef = useRef(null);
+  const rockRef = useRef(null);
+  const scoreRef = useRef(null);
+
+  function updateStatus() {
+    //generate and update status and speed
+    state = Math.floor(Math.random() * 4);
+    statusRef.current.innerHTML = "Darock is " + states[state] + "!";
+    rockRef.current.style.color = stateColors[state];
+    rockRef.current.style.animationDuration = animationSpeed + "s";
+  }
+
+  function startGame() {
+    updateStatus();
+    //timer
+    var stop = false
+    var statusTimer = setInterval(function () {
+      if (paused == true) {
+        clearInterval(statusTimer);
+        stop = true;
+        return;
+      }
+      if (timeleft <= 0) {
+        clearInterval(statusTimer);
+        console.log(state);
+        if (pressed[state] == 1) {
+          score = score + 10;
+          pressed = [0, 0, 0, 0];
+          if (multiplier > 0.02) {
+            multiplier -= 0.05;
+          }
+          if (animationSpeed > 0.2) {
+            animationSpeed -= 0.1;
+          }
+          console.log(multiplier);
+          document.querySelectorAll(".childBtn").forEach((btn) => {
+            btn.style.backgroundColor = "white";
+          });
+          timeleft = 10;
+          scoreRef.current.innerHTML = "Score: " + score;
+          startGame();
+        } else {
+          alert("Game Over! Your score is: " + score);
+          window.location.reload();
+        }
+      }
+      document.getElementById("progressBar").value = 10 - timeleft;
+      timeleft -= 1;
+    }, 1000 * multiplier);
+    if (stop) {
+      clearInterval(statusTimer);
+      timeleft = 10;
+      return;
+    }
+  }
 
   const update = () => {
-    setTestState("paused");
-  };
-
-  const [testState, setTestState] = useState();
-
-  useEffect(() => {
     paused = !paused;
-    console.log(paused);
     if (paused == true) {
       alert("Game Paused! Your current score is: " + score);
     } else {
       startGame();
     }
-  }, [testState]);
-
-  useEffect(() => {
-    function updateStatus() {
-      //generate and update status and speed
-      var state = Math.floor(Math.random() * 4);
-      document.querySelector(".status").innerHTML =
-        "Darock is " + states[state] + "!";
-      document.getElementsByClassName("rock")[0].style.color =
-        stateColors[state];
-      document.getElementById("rock").style.animationDuration =
-        animationSpeed + "s";
-    }
-
-    function startGame() {
-      updateStatus();
-      //timer
-      var timeleft = 10;
-      var statusTimer = setInterval(function () {
-        if (paused) {
-          return;
-        }
-        if (timeleft <= 0) {
-          clearInterval(statusTimer);
-          console.log(state);
-          if (pressed[state] == 1) {
-            score = score + 10;
-            pressed = [0, 0, 0, 0];
-            if (multiplier > 0.02) {
-              multiplier -= 0.05;
-            }
-            if (animationSpeed > 0.2) {
-              animationSpeed -= 0.1;
-            }
-            console.log(multiplier);
-            document.querySelectorAll(".childBtn").forEach((btn) => {
-              btn.style.backgroundColor = "white";
-            });
-            startGame();
-          } else {
-            alert("Game Over! Your score is: " + score);
-            window.location.reload();
-          }
-        }
-        document.getElementById("progressBar").value = 10 - timeleft;
-        timeleft -= 1;
-      }, 1000 * multiplier);
-    }
-
-    startGame();
-  });
+  };
 
   return (
     <>
@@ -128,7 +130,7 @@ export const Game = () => {
       <button onClick={update} className="pauseBtn" id="pauseScore">
         Pause or Resume
       </button>
-      <div className="scorePause">Score: 0</div>
+      <div ref={scoreRef} className="scorePause">Score: 0</div>
       <div style={{ textAlign: "center" }}>
         <li style={{ listStyleType: "none" }}>
           <Link reloadDocument to={"/mechanics"}>
@@ -155,6 +157,7 @@ export const Game = () => {
       </div>
 
       <svg
+        ref={rockRef}
         className="rock"
         id="rock"
         height="300px"
@@ -225,7 +228,11 @@ export const Game = () => {
         </g>
       </svg>
 
-      <p className="status" style={{ textAlign: "center", fontSize: "50px" }}>
+      <p
+        ref={statusRef}
+        className="status"
+        style={{ textAlign: "center", fontSize: "50px" }}
+      >
         status
       </p>
 
