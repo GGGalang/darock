@@ -16,6 +16,19 @@ import {
   Link,
 } from "react-router-dom";
 
+/* ToDos:
+- Speed up animations w/ multiplier DONE
+- Pause and Resume
+- Hard Mode
+- Animations onclick (a cookie will appear if feed cookie etc)
+    - Add symbols for the actions above buttons first lol
+    - Add sounds?
+- Death scene?
+- Better UI
+- Leaderboard
+- Power ups, question mark
+*/
+
 export const Game = () => {
   let pressed = [0, 0, 0, 0];
 
@@ -38,16 +51,20 @@ export const Game = () => {
 
   useEffect(() => {
     var score = 0;
+    var animationSpeed = 2;
     const states = ["hungry", "bored", "tired", "curious"];
     const stateColors = ["yellow", "red", "blue", "green"];
     var multiplier = 1;
+    
     function startGame() {
-      //generateStatus
+      //generate and update status and speed
       var state = Math.floor(Math.random() * 4);
       document.querySelector(".status").innerHTML =
         "Darock is " + states[state] + "!";
       document.getElementsByClassName("rock")[0].style.color =
         stateColors[state];
+      document.getElementById("rock").style.animationDuration =
+        animationSpeed + "s";
 
       //timer
       var timeleft = 10;
@@ -58,8 +75,11 @@ export const Game = () => {
           if (pressed[state] == 1) {
             score = score + 10;
             pressed = [0, 0, 0, 0];
-            if (multiplier > 0.02){
-                multiplier -= 0.05;
+            if (multiplier > 0.02) {
+              multiplier -= 0.05;
+            }
+            if (animationSpeed > 0.2) {
+              animationSpeed -= 0.1;
             }
             console.log(multiplier);
             document.querySelectorAll(".childBtn").forEach((btn) => {
@@ -82,7 +102,7 @@ export const Game = () => {
   return (
     <>
       <div style={{ textAlign: "center", fontSize: "100px" }}>darock.</div>
-      <div style={{textAlign: "center"}}>
+      <div style={{ textAlign: "center" }}>
         <li style={{ listStyleType: "none" }}>
           <Link reloadDocument to={"/mechanics"}>
             <button
