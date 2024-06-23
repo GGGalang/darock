@@ -8,7 +8,7 @@
   animation: rotation 2s infinite linear;
 }
 
-#progressBar{
+#progressBar {
   position: absolute;
   top: 85%;
   left: 45%;
@@ -30,14 +30,14 @@
   font-family: Coffee;
 }
 
-.rock{
+.rock {
   position: absolute;
   top: 27%;
-  left: 40%;
+  left: 42%;
   color: gray;
 }
 
-.actionDiv{
+.actionDiv {
   position: absolute;
   display: flex;
   text-align: center;
@@ -46,14 +46,14 @@
   top: 90%;
 }
 
-.status{
+.status {
   position: absolute;
   width: 100%;
   top: 70%;
   text-align: center;
 }
 
-.childBtn{
+.childBtn {
   margin: auto;
   background-color: white;
   border: none;
@@ -69,7 +69,7 @@
   background-color: black;
 }
 
-.scorePause{
+.scorePause {
   position: absolute;
   top: 10%;
   left: 6%;
@@ -88,10 +88,90 @@
   background-color: black;
 }
 
-.hardText{
+.hardText {
   position: absolute;
   top: 10%;
   right: 3%;
   color: black;
   font-size: 25px;
+}
+
+@keyframes cookieAnim {
+  100% {
+    transform: translate(600px, 200px);
+    opacity: 0;
+  }
+}
+#cookieAnim {
+  display: none;
+  position: absolute;
+  top: 10%;
+  height: 200px;
+  color: gray;
+}
+.cookie{
+  animation: cookieAnim 1s;
+}
+
+@keyframes gameAnim {
+  100% {
+    transform: translate(-600px, 200px);
+    opacity: 0;
+  }
+}
+#gameAnim {
+  display: none;
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  height: 200px;
+  color: gray;
+}
+.game{
+  animation: gameAnim 1s;
+}
+
+@keyframes sleepAnim {
+  100% {
+    transform: translate(600px, -200px);
+    opacity: 0;
+  }
+}
+#sleepAnim {
+  display: none;
+  position: absolute;
+  top: 50%;
+  height: 200px;
+  color: gray;
+}
+.sleep{
+  animation: sleepAnim 1s;
+}
+
+@keyframes bookAnim {
+  100% {
+    transform: translate(-600px, -200px);
+    opacity: 0;
+  }
+}
+#bookAnim {
+  display: none;
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  height: 200px;
+  color: gray;
+}
+.book{
+  animation: bookAnim 1s;
+}
+
+#boom{
+  z-index: 5;
+  display: none;
+  position: absolute;
+  top: 25%;
+  left: 40%;
+  height: 400px;
+  color: gray;
 }

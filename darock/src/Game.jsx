@@ -10,26 +10,21 @@ import pew from "./assets/pew.mp3";
 import snore from "./assets/snore.mp3";
 import hmm from "./assets/hmm.mp3";
 
-import {
-  Link
-} from "react-router-dom";
+import boom from "./assets/boom.gif";
+import explosion from "./assets/explosion.mp3";
+
+import { Link } from "react-router-dom";
 
 /* ToDos:
-- Speed up animations w/ multiplier DONE
-- Pause and Resume DONE
-- Hard Mode DONE
-- Animations onclick (a cookie will appear if feed cookie etc)
-    - Add symbols for the actions above buttons first lol DONE
-    - Add sounds? DONE
-    - add animations for the items flying onclick
-- Death scene?
+- fix alert on lose auto refreshing
+- Local Leadaerboard
+- Power ups, question mark
 - Better UI
     - better scores
     - better buttons
     - not UI but better button setting code lol
     - better svg code (maybe make it component?)
-- Leaderboard
-- Power ups, question mark
+    - better code overall. componentialize them!
 */
 
 export const Game = () => {
@@ -38,21 +33,64 @@ export const Game = () => {
   const setCookie = () => {
     pressed[0] = 1;
     document.getElementById("cookie").style.backgroundColor = "green";
+    const el = document.getElementById("cookieAnim");
+
+    el.style.display = "block";
+    el.classList.remove("cookie");
+    void el.offsetWidth;
+    setTimeout(() => {
+      el.style.display = "none";
+    }, 1100);
+    el.classList.add("cookie");
+
     document.getElementById("eatAudio").play();
   };
   const setGame = () => {
     pressed[1] = 1;
     document.getElementById("game").style.backgroundColor = "green";
+
+    const el = document.getElementById("gameAnim");
+
+    el.style.display = "block";
+    el.classList.remove("game");
+    void el.offsetWidth;
+    setTimeout(() => {
+      el.style.display = "none";
+    }, 1100);
+    el.classList.add("game");
+
     document.getElementById("gameAudio").play();
   };
   const setSleep = () => {
     pressed[2] = 1;
     document.getElementById("sleep").style.backgroundColor = "green";
+
+    const el = document.getElementById("sleepAnim");
+
+    el.style.display = "block";
+    el.classList.remove("sleep");
+    void el.offsetWidth;
+    setTimeout(() => {
+      el.style.display = "none";
+    }, 1100);
+    el.classList.add("sleep");
+
     document.getElementById("snoreAudio").play();
   };
   const setStudy = () => {
     pressed[3] = 1;
     document.getElementById("study").style.backgroundColor = "green";
+
+    const el = document.getElementById("bookAnim");
+
+    el.style.display = "block";
+    el.classList.remove("book");
+    void el.offsetWidth;
+    setTimeout(() => {
+      el.style.display = "none";
+    }, 1100);
+    el.classList.add("book");
+
     document.getElementById("thinkAudio").play();
   };
 
@@ -71,17 +109,18 @@ export const Game = () => {
   const rockRef = useRef(null);
   const scoreRef = useRef(null);
   const hardRef = useRef(null);
-  
+
   const enableHard = () => {
-    var real = window.confirm("Are you sure you want to enable hard mode? This immediately changes the difficulty. THERE IS NO GOING BACK.");
+    var real = window.confirm(
+      "Are you sure you want to enable hard mode? This immediately changes the difficulty. THERE IS NO GOING BACK."
+    );
     if (real) {
       hard = !hard;
       multiplier = 0.1;
       alert("Hard Mode Enabled! Good Luck! Next round will spell your doom.");
       hardRef.current.innerHTML = "Hard Mode: On";
     }
-
-  }
+  };
 
   function updateStatus() {
     //generate and update status and speed
@@ -119,8 +158,13 @@ export const Game = () => {
           scoreRef.current.innerHTML = "Score: " + score;
           startGame();
         } else {
-          alert("Game Over! Your score is: " + score);
-          window.location.reload();
+          document.getElementById("rock").style.display = "none";
+          document.getElementById("boom").style.display = "block";
+          document.getElementById("explosionAudio").play();
+          setTimeout(() => {
+            alert("Game Over! Your score is: " + score);
+            window.location.reload();
+          }, 1000);
         }
       }
       document.getElementById("progressBar").value = 10 - timeleft;
@@ -159,6 +203,14 @@ export const Game = () => {
       <div ref={hardRef} className="hardText">
         Hard Mode: Off
       </div>
+
+      <img className="cookie" id="cookieAnim" src={cookie} alt="" />
+      <img className="game" id="gameAnim" src={game} alt="" />
+      <img className="sleep" id="sleepAnim" src={sleep} alt="" />
+      <img className="book" id="bookAnim" src={book} alt="" />
+
+      <img id="boom" src={boom} alt="" />
+      <audio id="explosionAudio" src={explosion}></audio>
 
       <div style={{ textAlign: "center" }}>
         <li style={{ listStyleType: "none" }}>
@@ -265,7 +317,12 @@ export const Game = () => {
         status
       </p>
 
-      <progress style={{accentColor: "black"}} value="0" max="10" id="progressBar"></progress>
+      <progress
+        style={{ accentColor: "black" }}
+        value="0"
+        max="10"
+        id="progressBar"
+      ></progress>
 
       <div className="actionDiv">
         <button className="childBtn" id="cookie" onClick={setCookie}>
@@ -296,3 +353,14 @@ export const Game = () => {
     </>
   );
 };
+
+/* Dones
+- Speed up animations w/ multiplier DONE
+- Pause and Resume DONE
+- Hard Mode DONE
+- Animations onclick (a cookie will appear if feed cookie etc)
+    - Add symbols for the actions above buttons first lol DONE
+    - Add sounds? DONE
+    - add animations for the items flying onclick DONE
+- Death scene? DONE
+*/
