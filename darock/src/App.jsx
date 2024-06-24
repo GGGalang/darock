@@ -3,7 +3,8 @@ import "./App.css";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { Mechanics } from "./Mechanics";
-import { Game } from "./Game";
+import { Game } from "./Game.jsx";
+import { Leaderboard } from "./Leaderboard.jsx";
 
 import {
   BrowserRouter as Router,
@@ -34,6 +35,7 @@ export const App = () => {
           <Routes>
             <Route path="/" element={<Game />} />
             <Route path="/mechanics" element={<Mechanics />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
             {/* Redirects to home if site does not exist*/}
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>

@@ -9,6 +9,7 @@ import eat from "./assets/eat.mp3";
 import pew from "./assets/pew.mp3";
 import snore from "./assets/snore.mp3";
 import hmm from "./assets/hmm.mp3";
+import bgm from "./assets/bgm.mp3";
 
 import boom from "./assets/boom.gif";
 import explosion from "./assets/explosion.mp3";
@@ -16,8 +17,13 @@ import explosion from "./assets/explosion.mp3";
 import { Link } from "react-router-dom";
 
 /* ToDos:
-- fix alert on lose auto refreshing
+- bg music DONE
+- fix alert on lose auto refreshing DONE
 - Local Leadaerboard
+    - Save scores to local storage
+    - Display scores in leaderboard
+    - Sort scores
+    - Add names functionality and date
 - Power ups, question mark
 - Better UI
     - better scores
@@ -163,6 +169,14 @@ export const Game = () => {
           document.getElementById("explosionAudio").play();
           setTimeout(() => {
             alert("Game Over! Your score is: " + score);
+
+            if (document.getElementById("name").value == "") {
+              document.getElementById("name").value = "Anonymous";
+            }
+
+            var scores = localStorage.getItem("darockScore")
+            localStorage.setItem("darockScore", scores.append([document.getElementById("name").value, score]));
+            console.log(localStorage.getItem("darockScore"));
             window.location.reload();
           }, 1000);
         }
@@ -182,12 +196,18 @@ export const Game = () => {
   };
 
   useEffect(() => {
-    paused = false;
+    paused = !(confirm("Welcome to Darock! Are you ready to start?"));
+    console.log(paused);
+    if (paused){
+      alert("Not yet ready? Just click the Pause/Resume button to start the game!");
+    }
+
     startGame();
   });
 
   return (
     <>
+      <audio id="bgm" src={bgm} loop={true} />
       <div style={{ textAlign: "center", fontSize: "100px" }}>darock.</div>
 
       <button onClick={update} className="pauseBtn" id="pauseScore">
@@ -196,6 +216,7 @@ export const Game = () => {
       <div ref={scoreRef} className="scorePause">
         Score: 0
       </div>
+      <input id="name" type="text" placeholder="Name" className="nameField" />
 
       <button onClick={enableHard} className="hardBtn">
         Enable Hard Mode
@@ -213,11 +234,11 @@ export const Game = () => {
       <audio id="explosionAudio" src={explosion}></audio>
 
       <div style={{ textAlign: "center" }}>
-        <li style={{ listStyleType: "none" }}>
+        <li style={{ listStyleType: "none", display: "inline-block", marginRight: "2.5px" }}>
           <Link reloadDocument to={"/mechanics"}>
             <button
               style={{
-                width: "300px",
+                width: "100px",
                 height: "50px",
                 backgroundColor: "black",
               }}
@@ -226,11 +247,50 @@ export const Game = () => {
                 className="mdc-button__label"
                 style={{
                   fontFamily: "Coffee",
-                  fontSize: "30px",
+                  fontSize: "10px",
                   color: "white",
                 }}
               >
                 Mechanics
+              </span>
+            </button>
+          </Link>
+        </li>
+        <span style={{display: "inline-block", marginLeft: "2.5px", marginRight: "2.5px"}}>
+          <button
+            style={{
+              width: "100px",
+              height: "50px",
+              backgroundColor: "black",
+              color: "white",
+              fontFamily: "Coffee",
+              fontSize: "10px"
+            }}
+            onClick={() => {
+              document.getElementById("bgm").play();
+            }}
+          >
+            Play/Stop Music
+          </button>
+        </span>
+        <li style={{ listStyleType: "none", display: "inline-block", marginLeft: "2.5px" }}>
+          <Link reloadDocument to={"/leaderboard"}>
+            <button
+              style={{
+                width: "100px",
+                height: "50px",
+                backgroundColor: "black",
+              }}
+            >
+              <span
+                className="mdc-button__label"
+                style={{
+                  fontFamily: "Coffee",
+                  fontSize: "10px",
+                  color: "white",
+                }}
+              >
+                Leaderboard
               </span>
             </button>
           </Link>
