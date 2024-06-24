@@ -14,7 +14,7 @@ import bgm from "./assets/bgm.mp3";
 import boom from "./assets/boom.gif";
 import explosion from "./assets/explosion.mp3";
 
-import { Link } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 
 /* ToDos:
 - bg music DONE
@@ -102,6 +102,7 @@ export const Game = () => {
 
   const states = ["hungry", "bored", "tired", "curious"];
   const stateColors = ["yellow", "red", "blue", "green"];
+  const nav = new useNavigate();
   var score = 0;
   var animationSpeed = 2;
   var multiplier = 1;
@@ -167,6 +168,7 @@ export const Game = () => {
           document.getElementById("rock").style.display = "none";
           document.getElementById("boom").style.display = "block";
           document.getElementById("explosionAudio").play();
+
           setTimeout(() => {
             alert("Game Over! Your score is: " + score);
 
@@ -174,10 +176,30 @@ export const Game = () => {
               document.getElementById("name").value = "Anonymous";
             }
 
-            var scores = localStorage.getItem("darockScore")
-            localStorage.setItem("darockScore", scores.append([document.getElementById("name").value, score]));
-            console.log(localStorage.getItem("darockScore"));
-            window.location.reload();
+            document.getElementById("name").value = document
+              .getElementById("name")
+              .value.replaceAll(/\s/g, "_");
+
+            var date = new Date();
+            var dateStr =
+              date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
+
+            var scores = JSON.parse(localStorage.getItem("darockScore"));
+            localStorage.setItem(
+              "darockScore",
+              JSON.stringify(
+                scores +
+                  "(" +
+                  document.getElementById("name").value +
+                  "," +
+                  score +
+                  "," +
+                  dateStr +
+                  ")" +
+                  " "
+              )
+            );
+            nav("/leaderboard");
           }, 1000);
         }
       }
@@ -196,10 +218,19 @@ export const Game = () => {
   };
 
   useEffect(() => {
-    paused = !(confirm("Welcome to Darock! Are you ready to start?"));
+    console.log(localStorage.getItem("darockScore"));
+    if (
+      localStorage.getItem("darockScore") == "" ||
+      localStorage.getItem("darockScore") == null
+    ) {
+      localStorage.setItem("darockScore", JSON.stringify(""));
+    }
+    paused = !confirm("Welcome to Darock! Are you ready to start?");
     console.log(paused);
-    if (paused){
-      alert("Not yet ready? Just click the Pause/Resume button to start the game!");
+    if (paused) {
+      alert(
+        "Not yet ready? Just click the Pause/Resume button to start the game!"
+      );
     }
 
     startGame();
@@ -234,7 +265,13 @@ export const Game = () => {
       <audio id="explosionAudio" src={explosion}></audio>
 
       <div style={{ textAlign: "center" }}>
-        <li style={{ listStyleType: "none", display: "inline-block", marginRight: "2.5px" }}>
+        <li
+          style={{
+            listStyleType: "none",
+            display: "inline-block",
+            marginRight: "2.5px",
+          }}
+        >
           <Link reloadDocument to={"/mechanics"}>
             <button
               style={{
@@ -256,7 +293,13 @@ export const Game = () => {
             </button>
           </Link>
         </li>
-        <span style={{display: "inline-block", marginLeft: "2.5px", marginRight: "2.5px"}}>
+        <span
+          style={{
+            display: "inline-block",
+            marginLeft: "2.5px",
+            marginRight: "2.5px",
+          }}
+        >
           <button
             style={{
               width: "100px",
@@ -264,7 +307,7 @@ export const Game = () => {
               backgroundColor: "black",
               color: "white",
               fontFamily: "Coffee",
-              fontSize: "10px"
+              fontSize: "10px",
             }}
             onClick={() => {
               document.getElementById("bgm").play();
@@ -273,7 +316,13 @@ export const Game = () => {
             Play/Stop Music
           </button>
         </span>
-        <li style={{ listStyleType: "none", display: "inline-block", marginLeft: "2.5px" }}>
+        <li
+          style={{
+            listStyleType: "none",
+            display: "inline-block",
+            marginLeft: "2.5px",
+          }}
+        >
           <Link reloadDocument to={"/leaderboard"}>
             <button
               style={{
