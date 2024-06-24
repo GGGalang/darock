@@ -1,14 +1,6 @@
-import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
-import rockmuffin from "./assets/rockmuffin.svg";
-
 import {
   BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
   Link,
 } from "react-router-dom";
 
