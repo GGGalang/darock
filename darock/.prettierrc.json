@@ -1,0 +1,11 @@
+{
+  "overrides": [
+    {
+      "files": "src/**/*.{html, jsx, css}", 
+      "options": {
+        "printWidth": 500,
+        "singleAttributePerLine": false
+      }
+    }
+  ]
+}

@@ -14,10 +14,22 @@ import shine from "./assets/shine.mp3";
 
 import boom from "./assets/boom.gif";
 import explosion from "./assets/explosion.mp3";
+import alarm from "./assets/alarm.mp3";
 import plus from "./assets/plus.jpg";
+import time from "./assets/time.png";
 
 import { RockSVG } from "./Rock.jsx";
-import { setCookie, setGame, setSleep, setStudy } from "./functions";
+import {
+  setCookie,
+  setGame,
+  setSleep,
+  setStudy,
+  generatePowerUp,
+  cookieUp,
+  gameUp,
+  sleepUp,
+  studyUp,
+} from "./functions";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -54,6 +66,11 @@ export const Game = () => {
   const scoreRef = useRef(null);
   const hardRef = useRef(null);
   const plusRef = useRef(null);
+  const timeRef = useRef(null);
+  const cookieRef = useRef(null);
+  const gameRef = useRef(null);
+  const sleepRef = useRef(null);
+  const studyRef = useRef(null);
 
   const enableHard = () => {
     var real = window.confirm(
@@ -75,28 +92,21 @@ export const Game = () => {
     rockRef.current.style.animationDuration = animationSpeed + "s";
   }
 
-  function generatePowerUp() {
-    const upArr = ["pointsAnim", "timeAnim", "cookieSafe", "gameSafe", "sleepSafe", "studySafe"];
-    const powerUp = 0//Math.floor(Math.random() * 6);
-
-    const el = document.getElementById(upArr[powerUp]);
-
-    el.style.display = "block";
-    el.classList.remove(upArr[powerUp]);
-    void el.offsetWidth;
-    setTimeout(() => {
-      el.style.display = "none";
-    }, 8000);
-    el.classList.add(upArr[powerUp]);
-
-    document.getElementById("shine").play();
-  }
-
+  //cant be placed in functions file; will break
   const addPoints = () => {
     score += 10;
     scoreRef.current.innerHTML = "Score: " + score + "(+ Power Up)";
     document.getElementById("thinkAudio").play();
     plusRef.current.style.display = "none";
+  };
+  const pauseTime = () => {
+    paused = !paused;
+    alert(
+      "Power Up: Pause! Get a breather, click all actions, while your score is: " +
+        score
+    );
+    document.getElementById("timeSafe").style.display = "none";
+    document.getElementById("alarm").play();
   };
 
   function startGame() {
@@ -222,6 +232,7 @@ export const Game = () => {
         Hard Mode: Off
       </div>
 
+      {/* Power Ups */}
       <button
         ref={plusRef}
         id="pointsAnim"
@@ -237,6 +248,102 @@ export const Game = () => {
         <img
           style={{ position: "absolute", height: "100px" }}
           src={plus}
+          alt=""
+        />
+      </button>
+
+      <button
+        ref={timeRef}
+        id="timeAnim"
+        onClick={pauseTime}
+        style={{
+          position: "absolute",
+          height: "100px",
+          width: "100px",
+          background: "none",
+          border: "none",
+        }}
+      >
+        <img
+          style={{ position: "absolute", height: "100px" }}
+          src={time}
+          alt=""
+        />
+        <audio id="alarm" src={alarm}></audio>
+      </button>
+
+      <button
+        ref={cookieRef}
+        id="cookieSafe"
+        onClick={cookieUp}
+        style={{
+          position: "absolute",
+          height: "100px",
+          width: "100px",
+          background: "none",
+          border: "none",
+        }}
+      >
+        <img
+          style={{ position: "absolute", height: "100px" }}
+          src={cookie}
+          alt=""
+        />
+      </button>
+
+      <button
+        ref={gameRef}
+        id="gameSafe"
+        onClick={gameUp}
+        style={{
+          position: "absolute",
+          height: "100px",
+          width: "100px",
+          background: "none",
+          border: "none",
+        }}
+      >
+        <img
+          style={{ position: "absolute", height: "100px" }}
+          src={game}
+          alt=""
+        />
+      </button>
+
+      <button
+        ref={sleepRef}
+        id="sleepSafe"
+        onClick={sleepUp}
+        style={{
+          position: "absolute",
+          height: "100px",
+          width: "100px",
+          background: "none",
+          border: "none",
+        }}
+      >
+        <img
+          style={{ position: "absolute", height: "100px" }}
+          src={sleep}
+          alt=""
+        />
+      </button>
+
+      <button
+        ref={studyRef}
+        id="studySafe"
+        onClick={studyUp}
+        style={{
+          position: "absolute",
+          height: "100px",
+          width: "100px",
+          background: "none",
+          border: "none",
+        }}
+      >
+        <img
+          style={{ position: "absolute", height: "100px" }}
+          src={book}
           alt=""
         />
       </button>
