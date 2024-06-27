@@ -9,7 +9,7 @@ export function setCookie(){
   void el.offsetWidth;
   setTimeout(() => {
     el.style.display = "none";
-  }, 1100);
+  }, 1000);
   el.classList.add("cookie");
 
   document.getElementById("eatAudio").play();
@@ -26,7 +26,7 @@ export function setGame(){
   void el.offsetWidth;
   setTimeout(() => {
     el.style.display = "none";
-  }, 1100);
+  }, 1000);
   el.classList.add("game");
 
   document.getElementById("gameAudio").play();
@@ -42,7 +42,7 @@ export function setSleep(){
   void el.offsetWidth;
   setTimeout(() => {
     el.style.display = "none";
-  }, 1100);
+  }, 1000);
   el.classList.add("sleep");
 
   document.getElementById("snoreAudio").play();
@@ -58,7 +58,7 @@ export function setStudy(){
   void el.offsetWidth;
   setTimeout(() => {
     el.style.display = "none";
-  }, 1100);
+  }, 1000);
   el.classList.add("book");
 
   document.getElementById("thinkAudio").play();

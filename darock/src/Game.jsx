@@ -10,9 +10,11 @@ import pew from "./assets/pew.mp3";
 import snore from "./assets/snore.mp3";
 import hmm from "./assets/hmm.mp3";
 import bgm from "./assets/bgm.mp3";
+import shine from "./assets/shine.mp3";
 
 import boom from "./assets/boom.gif";
 import explosion from "./assets/explosion.mp3";
+import plus from "./assets/plus.jpg";
 
 import { RockSVG } from "./Rock.jsx";
 import { setCookie, setGame, setSleep, setStudy } from "./functions";
@@ -21,6 +23,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 /* ToDos:
 - Power ups, question mark
+  - Plus Points DONE
+  - Time Stop
+  - Button Safe (one button auto click for a set time)
 - Better UI
     - better scores
     - better buttons
@@ -48,6 +53,7 @@ export const Game = () => {
   const rockRef = useRef(null);
   const scoreRef = useRef(null);
   const hardRef = useRef(null);
+  const plusRef = useRef(null);
 
   const enableHard = () => {
     var real = window.confirm(
@@ -69,6 +75,30 @@ export const Game = () => {
     rockRef.current.style.animationDuration = animationSpeed + "s";
   }
 
+  function generatePowerUp() {
+    const upArr = ["pointsAnim", "timeAnim", "cookieSafe", "gameSafe", "sleepSafe", "studySafe"];
+    const powerUp = 0//Math.floor(Math.random() * 6);
+
+    const el = document.getElementById(upArr[powerUp]);
+
+    el.style.display = "block";
+    el.classList.remove(upArr[powerUp]);
+    void el.offsetWidth;
+    setTimeout(() => {
+      el.style.display = "none";
+    }, 8000);
+    el.classList.add(upArr[powerUp]);
+
+    document.getElementById("shine").play();
+  }
+
+  const addPoints = () => {
+    score += 10;
+    scoreRef.current.innerHTML = "Score: " + score + "(+ Power Up)";
+    document.getElementById("thinkAudio").play();
+    plusRef.current.style.display = "none";
+  };
+
   function startGame() {
     updateStatus();
     //timer
@@ -76,6 +106,9 @@ export const Game = () => {
       if (paused == true) {
         clearInterval(statusTimer);
         return;
+      }
+      if (Math.floor(Math.random() * 30) == 8) {
+        generatePowerUp();
       }
       if (timeleft <= 0) {
         clearInterval(statusTimer);
@@ -171,6 +204,7 @@ export const Game = () => {
   return (
     <>
       <audio id="bgm" src={bgm} loop={true} />
+      <audio id="shine" src={shine}></audio>
       <div style={{ textAlign: "center", fontSize: "100px" }}>darock.</div>
 
       <button onClick={update} className="pauseBtn" id="pauseScore">
@@ -187,6 +221,25 @@ export const Game = () => {
       <div ref={hardRef} className="hardText">
         Hard Mode: Off
       </div>
+
+      <button
+        ref={plusRef}
+        id="pointsAnim"
+        onClick={addPoints}
+        style={{
+          position: "absolute",
+          height: "100px",
+          width: "100px",
+          background: "none",
+          border: "none",
+        }}
+      >
+        <img
+          style={{ position: "absolute", height: "100px" }}
+          src={plus}
+          alt=""
+        />
+      </button>
 
       <img className="cookie" id="cookieAnim" src={cookie} alt="" />
       <img className="game" id="gameAnim" src={game} alt="" />
