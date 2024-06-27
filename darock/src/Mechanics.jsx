@@ -1,8 +1,5 @@
 import "./App.css";
-import {
-  BrowserRouter as Router,
-  Link,
-} from "react-router-dom";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 
 export const Mechanics = () => {
   return (
@@ -31,26 +28,25 @@ export const Mechanics = () => {
           </Link>
         </li>
       </div>
-      <p>You have a pet rock.</p>
-      <p>
-        It has 4 possible states:
-        <ol>
-          <li>
-            Hungry
-            <svg
-              height="20px"
-              width="20px"
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlnsXlink="http://www.w3.org/1999/xlink"
-              viewBox="0 0 512.014 512.014"
-              xmlSpace="preserve"
-            >
+      <p style={{ textAlign: "center" , fontSize: "100px", marginBottom: "-10px", marginTop: "50px"}}>You have a pet rock.</p>
+      <p style={{fontSize: "50px", marginBottom: "-10px", textAlign: "center"}}>It has 4 possible states:</p>
+      <p style={{textAlign: "center"}}>
+        <li>
+          Hungry
+          <svg
+            height="20px"
+            width="20px"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlnsXlink="http://www.w3.org/1999/xlink"
+            viewBox="0 0 512.014 512.014"
+            xmlSpace="preserve"
+          >
+            <g>
               <g>
-                <g>
-                  <path
-                    fill="yellow"
-                    d="M506.35,210.979l-2.517-5.504c-1.451-3.093-2.027-6.528-1.728-9.899l0.555-5.931c1.6-17.749-4.544-35.456-16.853-48.533
+                <path
+                  fill="yellow"
+                  d="M506.35,210.979l-2.517-5.504c-1.451-3.093-2.027-6.528-1.728-9.899l0.555-5.931c1.6-17.749-4.544-35.456-16.853-48.533
 			l-4.928-5.248c-2.368-2.517-4.053-5.547-4.885-8.811l-1.685-6.613c-4.288-16.683-15.531-31.147-30.805-39.616l-7.68-4.288
 			c-3.029-1.685-5.611-4.032-7.488-6.891l-4.565-6.912c-9.301-14.016-23.595-23.744-40.32-27.371l-10.069-2.176
 			c-3.349-0.725-6.507-2.197-9.173-4.309l-7.765-6.123C343.559,12.578,327.431,7.671,310.94,8.93l-11.115,0.853
@@ -101,27 +97,27 @@ export const Mechanics = () => {
 			c3.691-0.043,7.381,0.149,11.072,0.32c2.603,0.107,5.184,0.171,7.787,0.384c3.605,0.299,7.211,0.789,10.816,1.28
 			c2.624,0.363,5.248,0.725,7.872,1.195c3.584,0.64,7.168,1.429,10.731,2.283c2.219,0.533,4.437,1.088,6.635,1.685
 			c8.533,2.368,16.896,5.099,24.768,8.448C437.102,256.824,437.059,257.144,437.059,257.421z"
-                  />
-                </g>
+                />
               </g>
-            </svg>
-          </li>
-          <li>
-            Bored
-            <svg
-              height="20px"
-              width="20px"
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlnsXlink="http://www.w3.org/1999/xlink"
-              viewBox="0 0 512.014 512.014"
-              xmlSpace="preserve"
-            >
+            </g>
+          </svg>
+        </li>
+        <li>
+          Bored
+          <svg
+            height="20px"
+            width="20px"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlnsXlink="http://www.w3.org/1999/xlink"
+            viewBox="0 0 512.014 512.014"
+            xmlSpace="preserve"
+          >
+            <g>
               <g>
-                <g>
-                  <path
-                    fill="red"
-                    d="M506.35,210.979l-2.517-5.504c-1.451-3.093-2.027-6.528-1.728-9.899l0.555-5.931c1.6-17.749-4.544-35.456-16.853-48.533
+                <path
+                  fill="red"
+                  d="M506.35,210.979l-2.517-5.504c-1.451-3.093-2.027-6.528-1.728-9.899l0.555-5.931c1.6-17.749-4.544-35.456-16.853-48.533
 			l-4.928-5.248c-2.368-2.517-4.053-5.547-4.885-8.811l-1.685-6.613c-4.288-16.683-15.531-31.147-30.805-39.616l-7.68-4.288
 			c-3.029-1.685-5.611-4.032-7.488-6.891l-4.565-6.912c-9.301-14.016-23.595-23.744-40.32-27.371l-10.069-2.176
 			c-3.349-0.725-6.507-2.197-9.173-4.309l-7.765-6.123C343.559,12.578,327.431,7.671,310.94,8.93l-11.115,0.853
@@ -172,27 +168,27 @@ export const Mechanics = () => {
 			c3.691-0.043,7.381,0.149,11.072,0.32c2.603,0.107,5.184,0.171,7.787,0.384c3.605,0.299,7.211,0.789,10.816,1.28
 			c2.624,0.363,5.248,0.725,7.872,1.195c3.584,0.64,7.168,1.429,10.731,2.283c2.219,0.533,4.437,1.088,6.635,1.685
 			c8.533,2.368,16.896,5.099,24.768,8.448C437.102,256.824,437.059,257.144,437.059,257.421z"
-                  />
-                </g>
+                />
               </g>
-            </svg>
-          </li>
-          <li>
-            Tired
-            <svg
-              height="20px"
-              width="20px"
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlnsXlink="http://www.w3.org/1999/xlink"
-              viewBox="0 0 512.014 512.014"
-              xmlSpace="preserve"
-            >
+            </g>
+          </svg>
+        </li>
+        <li>
+          Tired
+          <svg
+            height="20px"
+            width="20px"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlnsXlink="http://www.w3.org/1999/xlink"
+            viewBox="0 0 512.014 512.014"
+            xmlSpace="preserve"
+          >
+            <g>
               <g>
-                <g>
-                  <path
-                    fill="blue"
-                    d="M506.35,210.979l-2.517-5.504c-1.451-3.093-2.027-6.528-1.728-9.899l0.555-5.931c1.6-17.749-4.544-35.456-16.853-48.533
+                <path
+                  fill="blue"
+                  d="M506.35,210.979l-2.517-5.504c-1.451-3.093-2.027-6.528-1.728-9.899l0.555-5.931c1.6-17.749-4.544-35.456-16.853-48.533
 			l-4.928-5.248c-2.368-2.517-4.053-5.547-4.885-8.811l-1.685-6.613c-4.288-16.683-15.531-31.147-30.805-39.616l-7.68-4.288
 			c-3.029-1.685-5.611-4.032-7.488-6.891l-4.565-6.912c-9.301-14.016-23.595-23.744-40.32-27.371l-10.069-2.176
 			c-3.349-0.725-6.507-2.197-9.173-4.309l-7.765-6.123C343.559,12.578,327.431,7.671,310.94,8.93l-11.115,0.853
@@ -243,27 +239,27 @@ export const Mechanics = () => {
 			c3.691-0.043,7.381,0.149,11.072,0.32c2.603,0.107,5.184,0.171,7.787,0.384c3.605,0.299,7.211,0.789,10.816,1.28
 			c2.624,0.363,5.248,0.725,7.872,1.195c3.584,0.64,7.168,1.429,10.731,2.283c2.219,0.533,4.437,1.088,6.635,1.685
 			c8.533,2.368,16.896,5.099,24.768,8.448C437.102,256.824,437.059,257.144,437.059,257.421z"
-                  />
-                </g>
+                />
               </g>
-            </svg>
-          </li>
-          <li>
-            Curious
-            <svg
-              height="20px"
-              width="20px"
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlnsXlink="http://www.w3.org/1999/xlink"
-              viewBox="0 0 512.014 512.014"
-              xmlSpace="preserve"
-            >
+            </g>
+          </svg>
+        </li>
+        <li>
+          Curious
+          <svg
+            height="20px"
+            width="20px"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlnsXlink="http://www.w3.org/1999/xlink"
+            viewBox="0 0 512.014 512.014"
+            xmlSpace="preserve"
+          >
+            <g>
               <g>
-                <g>
-                  <path
-                    fill="green"
-                    d="M506.35,210.979l-2.517-5.504c-1.451-3.093-2.027-6.528-1.728-9.899l0.555-5.931c1.6-17.749-4.544-35.456-16.853-48.533
+                <path
+                  fill="green"
+                  d="M506.35,210.979l-2.517-5.504c-1.451-3.093-2.027-6.528-1.728-9.899l0.555-5.931c1.6-17.749-4.544-35.456-16.853-48.533
 			l-4.928-5.248c-2.368-2.517-4.053-5.547-4.885-8.811l-1.685-6.613c-4.288-16.683-15.531-31.147-30.805-39.616l-7.68-4.288
 			c-3.029-1.685-5.611-4.032-7.488-6.891l-4.565-6.912c-9.301-14.016-23.595-23.744-40.32-27.371l-10.069-2.176
 			c-3.349-0.725-6.507-2.197-9.173-4.309l-7.765-6.123C343.559,12.578,327.431,7.671,310.94,8.93l-11.115,0.853
@@ -314,31 +310,39 @@ export const Mechanics = () => {
 			c3.691-0.043,7.381,0.149,11.072,0.32c2.603,0.107,5.184,0.171,7.787,0.384c3.605,0.299,7.211,0.789,10.816,1.28
 			c2.624,0.363,5.248,0.725,7.872,1.195c3.584,0.64,7.168,1.429,10.731,2.283c2.219,0.533,4.437,1.088,6.635,1.685
 			c8.533,2.368,16.896,5.099,24.768,8.448C437.102,256.824,437.059,257.144,437.059,257.421z"
-                  />
-                </g>
+                />
               </g>
-            </svg>
-          </li>
-        </ol>
+            </g>
+          </svg>
+        </li>
       </p>
-      <p>
-        Click the proper response buttons to take care of your pet rock!
-        <ol>
-          <li>To remove hunger, feed it a cookie~!</li>
-          <li>To remove boredom, play games with it!</li>
-          <li>To remove tiredness, put it to bed!</li>
-          <li>To remove curiosity, read a book with it!</li>
-        </ol>
+
+	  <p style={{textAlign: "center", marginTop: "30px", fontSize: "50px", marginBottom: "-5px"}}>
+		Click the proper response buttons to take care of your pet rock!
+	  </p>
+      <p style={{textAlign: "center"}}>
+        To remove hunger, feed it a cookie~!<br />
+        To remove boredom, play games with it!<br />
+        To remove tiredness, put it to bed!<br />
+        To remove curiosity, read a book with it!
       </p>
-      <p>
+
+	  <p style={{textAlign: "center", marginTop: "30px", fontSize: "50px", marginBottom: "-5px"}}>
+		Every once in a while, power-ups will appear! Click on them to use them!
+	  </p>
+      <p style={{textAlign: "center"}}>They can do a variety of things, from flat out giving you points, pausing time, or even automatically doing actions for your rock!</p>
+      
+	  <br />
+	  <br />
+	  <p style={{textAlign: "center"}}>
         Be warned though, as with each passing turn you take care of your pet
         rock, you'll need to be quicker with it needs!
       </p>
-      <p style={{textAlign: "center"}}>
+      <p style={{ textAlign: "center" }}>
         Enjoy your new pet rock! Game inspired by a Hack the Club challenge.
       </p>
       <svg
-        style={{marginLeft: "44%"}}
+        style={{ marginLeft: "44%" }}
         id="rock"
         height="200px"
         width="200px"
